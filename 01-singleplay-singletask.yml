@@ -1,0 +1,9 @@
+---
+- name: Update all servers
+  hosts: all
+
+  tasks:
+  - name: Ensure Dir w1 is created
+    file:
+      path: /home/ec2-user/w1
+      state: directory

@@ -1,0 +1,38 @@
+---
+- name: Update all servers
+  hosts: all
+  become: yes
+  vars:
+    http_port: 80 
+
+  tasks:
+  - name: Modify Se-Linux
+    selinux:
+      policy: targeted
+      state: permissive
+
+  - name: Update Config
+    template:
+      src: httpd.j2
+      dest: /etc/httpd/conf/httpd.conf
+
+  - name: Ensure httpd is restarted
+    service:
+      name: httpd
+      state: restarted
+
+  - name: Update PHP page
+    copy:
+      src: date.php
+      dest: /var/www/html/date.php
+
+  - name: Install PHP
+    package:
+      name: php
+      state: present
+
+  - name: Ensure httpd is restarted
+    service:
+      name: httpd
+      state: restarted
+

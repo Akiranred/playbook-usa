@@ -1,0 +1,10 @@
+---
+- name: Update all servers
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Ensure config is updated.
+    copy:
+      src: httpd.conf
+      dest: /etc/httpd/conf/httpd.conf

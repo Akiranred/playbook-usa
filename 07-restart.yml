@@ -1,0 +1,15 @@
+---
+- name: Update all servers
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Modify Se-Linux
+    selinux:
+      policy: targeted
+      state: permissive
+
+  - name: Ensure httpd is restarted
+    service:
+      name: httpd
+      state: restarted

@@ -1,0 +1,22 @@
+---
+- name: Update all servers
+  hosts: all
+  become: yes
+  vars:
+    http_port: 9090    
+
+  tasks:
+  - name: Modify Se-Linux
+    selinux:
+      policy: targeted
+      state: permissive
+
+  - name: Update Config
+    template:
+      src: httpd.j2
+      dest: /etc/httpd/conf/httpd.conf
+
+  - name: Ensure httpd is restarted
+    service:
+      name: httpd
+      state: restarted

@@ -1,0 +1,27 @@
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+  - name: Ensure Dir G1 is created
+    file:
+      path: /home/ec2-user/G1
+      state: directory
+
+- name: Update db servers
+  hosts: db
+
+  tasks:
+  - name: Ensure Dir G2 is created
+    file:
+      path: /home/ec2-user/G2
+      state: directory
+
+- name: Update App servers
+  hosts: app
+
+  tasks:
+  - name: Ensure Dir G3 is created
+    file:
+      path: /home/ec2-user/G3
+      state: directory
